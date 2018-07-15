@@ -163,9 +163,9 @@ function getCompleteProject($project, $op, $uhh=0) {//OPTIONS (op): 0 = get inco
 	}
 	}
 }
-function insertProject($name) {
+function insertProject($name, $bid) {
 	$conn = connect();
-	$conn->query(sprintf("INSERT INTO `projects` (`name`) VALUES ('%s')", $name));
+	$conn->query(sprintf("INSERT INTO `projects` (`name`, `bid`, `visibility`) VALUES ('%s', '%s', '%s')", $name, $bid, "f,".getBadmin($bid).",l"));
   echo($conn->error);
 	$conn->close();
 }
@@ -225,27 +225,27 @@ function deleteProject($pid) {
 	$conn->query(sprintf("DELETE FROM steps WHERE `steps`.`apid`='%s'", $pid));
 	$conn->close();
 }
-function editProjVis($pid, $vis, $all) {
+function editProjVis($pid, $vis, $all, $bid) {
 	$conn = connect();
-	$conn->query(sprintf("UPDATE `projects` SET `visibility`='%s' WHERE `pid`='$pid'", 'f,admin,' . $vis . ',l'));
+	$conn->query(sprintf("UPDATE `projects` SET `visibility`='%s' WHERE `pid`='$pid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
 	if ($all) {
-  	$conn->query(sprintf("UPDATE `tasks` SET `visibility`='%s' WHERE `apid`='$pid'", 'f,admin,' . $vis . ',l'));
-		$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `apid`='$pid'", 'f,admin,' . $vis . ',l'));
+  	$conn->query(sprintf("UPDATE `tasks` SET `visibility`='%s' WHERE `apid`='$pid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
+		$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `apid`='$pid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
   }
   $conn->close();
 }
 
-function editTaskVis($tid, $vis, $all) {
+function editTaskVis($tid, $vis, $all, $bid) {
 	$conn = connect();
-	$conn->query(sprintf("UPDATE `tasks` SET `visibility`='%s' WHERE `tid`='$tid'", 'f,admin,' . $vis . ',l'));
+	$conn->query(sprintf("UPDATE `tasks` SET `visibility`='%s' WHERE `tid`='$tid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
 	if ($all) {
-  	$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `atid`='$tid'", 'f,admin,' . $vis . ',l'));
+  	$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `atid`='$tid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
   }
   $conn->close();
 }
-function editStepVis($sid, $vis) {
+function editStepVis($sid, $vis, $bid) {
 	$conn = connect();
-	$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `sid`='$sid'", 'f,admin,' . $vis . ',l'));
+	$conn->query(sprintf("UPDATE `steps` SET `visibility`='%s' WHERE `sid`='$sid'", 'f,'. getBadmin($bid) . ',' . $vis . ',l'));
 	$conn->close();
 }
 function editProjAssigned($proj, $group) {
@@ -340,6 +340,15 @@ function checkName($projName) {
 	} else {
 		return "true";
 	}
+}
+function getBadmin($bid) {
+	$conn = connect();
+	$qr = $conn->query("SELECT * FROM `companies` WHERE bid='$bid'");
+	$conn->close();
+	while ($row = mysqli_fetch_array($qr, MYSQLI_ASSOC)) {
+		$badmin[] = $row['admin'];
+	}
+	return $badmin[0];
 }
 function loginuser($user, $hash) {
 	$conn = connect();

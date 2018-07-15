@@ -33,7 +33,7 @@ switch($_GET['func']) {
     if (true) {
       switch($_GET['func']) {
         case "newProject":
-          insertProject($_GET['name']);
+          insertProject($_GET['name'], $_SESSION['bid']);
           header('Location: /proflow/projects');
           break;
         case "newTask":
@@ -78,7 +78,7 @@ switch($_GET['func']) {
           } else {
             $all = false;
           }
-          editProjVis($_GET['PID'], $_GET['vis'], $all);
+          editProjVis($_GET['PID'], $_GET['vis'], $all, $_SESSION['bid']);
           header('Location: /proflow/tasks');
           break;
         case "editTaskVis":
@@ -87,11 +87,11 @@ switch($_GET['func']) {
           } else {
             $all = true;
           }
-          editTaskVis($_GET['TID'], $_GET['vis'], $all);
+          editTaskVis($_GET['TID'], $_GET['vis'], $all, $_SESSION['bid']);
           header('Location: /proflow/tasks');
           break;
         case "editStepVis":
-          editStepVis($_GET['SID'], $_GET['vis']);
+          editStepVis($_GET['SID'], $_GET['vis'], $_SESSION['bid']);
           header('Location: /proflow/tasks');
           break;
         case "editProjAssigned":

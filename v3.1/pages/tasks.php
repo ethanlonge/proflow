@@ -150,7 +150,6 @@ function tasksPage() {
               <div class='stepDelete'><a class='dropdown-trigger' onclick=\"event.stopPropagation()\" data-target='context-".$sarr[$j][0]."'><i class='material-icons'>more_vert</i></a></div>
               <ul id='context-".$sarr[$j][0]."' class='dropdown-content'>
         			<li><a class=\"modal-trigger\" href=\"#editStepModal\" onclick=\"event.stopPropagation(); stepid = '". $sarr[$j][0] ."'; $('#editStepText').val('".$sarr[$j][1]."'); $('#editStepModal').modal('open')\"><!--<i class='material-icons'>edit</i>-->Edit</a></li>
-              <li><a class=\"modal-trigger\" href=\"#editStepAssignModal\" onclick=\"event.stopPropagation(); stepid = '". $sarr[$j][0] ."'; $('#editStepAssigned').val('".$sarr[$j][4]."'); $('#editStepAssignModal').modal('open')\">Assign</a></li>
         			<li><a class=\"modal-trigger\" href=\"#editStepVisModal\" onclick=\"event.stopPropagation(); stepid = '". $sarr[$j][0] ."'; vis = '".$sarr[$j][3]."'; chipifySVis(); $('#visStepName').text('". $sarr[$j][1] ."'); $('#editStepVisModal').modal('open')\"><!--<i class='material-icons'>visibility</i>-->Visibility</a></li>
               <li class='divider'></li>
         			<li><a class=\"modal-trigger\" href=\"#deleteStepModal\" onclick=\"event.stopPropagation(); stepid = '". $sarr[$j][0] ."'; $('#delStepName').text('". $sarr[$j][1] ."'); $('#delStepTaskName').text('". $arr[$i][1] ."'); $('#deleteStepModal').modal('open')\"><!--<i class='material-icons'>delete</i>-->Delete</a></li>
@@ -283,24 +282,6 @@ function tasksPage() {
       <a href="#!" onclick='editStepVis()' class="modal-action modal-close waves-effect waves-green btn-flat">Save Changes</a>
     </div>
   </div>
-  <div id="editTaskAssignModal" class="modal">
-    <div class="modal-content">
-      <h4>Edit Assignment</h4>
-      <p><input id='editTaskAssigned' type='text'></p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" onclick='editTaskAssigned()' class="modal-action modal-close waves-effect waves-green btn-flat">Save Changes</a>
-    </div>
-  </div>
-  <div id="editStepAssignModal" class="modal">
-    <div class="modal-content">
-      <h4>Edit Assignment</h4>
-      <p><input id='editStepAssigned' type='text'></p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" onclick='editStepAssigned()' class="modal-action modal-close waves-effect waves-green btn-flat">Save Changes</a>
-    </div>
-  </div>
  	<script>
   	var projid;
     var taskid;
@@ -396,12 +377,6 @@ function tasksPage() {
       } else {
       	$('#stepVisChips').chips();
       }
-    }
-    function editTaskAssigned() {
-    	location.href = '/pf/helper.php?func=editTaskAssigned&TID=' + taskid + '&group=' + $('#editTaskAssigned').val();
-    }
-    function editStepAssigned() {
-    	location.href = '/pf/helper.php?func=editStepAssigned&SID=' + stepid + '&group=' + $('#editStepAssigned').val();
     }
   </script>
 <?php

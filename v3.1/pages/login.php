@@ -37,10 +37,6 @@ function loginPage() {
   <main style='display: flex; justify-content: center; align-items: center'>
     <center>
       <div class="container">
-        <div class="red darken-3 white-text z-depth-1" style="border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 7px 10px 7px 10px; font-size: 15px; margin: 0 -.75rem 0 -.75rem;">
-          Warning! Major work in progress<br>
-          Proceed with caution
-        </div>
         <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
           <form class="col s12" action='/pf/helper.php?func=login' method="post">
             <div class='row'>
@@ -125,10 +121,6 @@ function registerPage() {
   <main style='display: flex; justify-content: center; align-items: center'>
     <center>
       <div class="container" style="width: 360px;">
-        <div class="red darken-3 white-text z-depth-1" style="border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 7px 10px 7px 10px; font-size: 15px; margin: 0 -.75rem 0 -.75rem;">
-          Warning! Major work in progress<br>
-          Proceed with caution
-        </div>
         <div class="z-depth-1 grey lighten-4 row" style="padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
           <!--<form class="col s12" action='/pf/helper.php?func=register' method="post">-->
           <form class="col s12" onsubmit="projSet(); return false;">
